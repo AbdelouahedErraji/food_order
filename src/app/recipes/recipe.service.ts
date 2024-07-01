@@ -7,20 +7,22 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Tasty Schnitzel',
-      'A super-tasty Schnitzel - just awesome!',
-      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
-      [new Ingredient('Meat', 1), new Ingredient('French Fries', 20)]
-    ),
-    new Recipe(
-      'Big Fat Burger',
-      'What else you need to say?',
-      'https://i1.pickpik.com/photos/834/856/847/abstract-barbeque-bbq-beauty-preview.jpg',
-      [new Ingredient('Buns', 2), new Ingredient('Meat', 1)]
-    ),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Tasty Schnitzel',
+  //     'A super-tasty Schnitzel - just awesome!',
+  //     'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+  //     [new Ingredient('Meat', 1), new Ingredient('French Fries', 20)]
+  //   ),
+  //   new Recipe(
+  //     'Big Fat Burger',
+  //     'What else you need to say?',
+  //     'https://i1.pickpik.com/photos/834/856/847/abstract-barbeque-bbq-beauty-preview.jpg',
+  //     [new Ingredient('Buns', 2), new Ingredient('Meat', 1)]
+  //   ),
+  // ];
+
+  private recipes: Recipe[] = [];
 
   getRecipe(index: number): Recipe {
     return this.recipes[index];
@@ -28,6 +30,11 @@ export class RecipeService {
 
   getRecipes() {
     return this.recipes.slice();
+  }
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
   }
 
   constructor(private shoppingListService: ShoppingListService) {}
